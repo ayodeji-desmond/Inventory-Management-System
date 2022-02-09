@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+import {Op} from 'sequelize';
 //import {serverResponse, serverError} from "../helper/serverResponse";
 //import { NextFunction } from 'connect';
 import { SuccessMsgResponse } from '../helper/ApiResponse';
@@ -25,8 +26,10 @@ class MerchantController{
             let encrypted_password = utils.hashString(user_login_credentials.password);
             const userFound = await Merchant.findOne({
                 where: {
-                    email: user_login_credentials.email,
-                    password: encrypted_password
+                    [Op.or]: [
+                        { email: user_login_credentials.email},
+                        { username: user_login_credentials.username}
+                    ]
                 }
             });
 
@@ -63,17 +66,11 @@ class MerchantController{
             });
             if(is_merchant_unique) throw new BadRequestError("Email already exist");
             const activation_code = utils.generateRandomToken();
-            //merchantData.password = utils.hashString(merchantData.password);
             let merchant_data_obj = Object.assign({}, merchantData, {
                 activated: 0
             });
-
             const registeredMerchant = await Merchant.create(merchant_data_obj);
-
             return new SuccessMsgResponse("Merchant successfully registered").send(res);
-
-
-            console.log(merchant_data_obj)
 
         }catch(err){
             console.log(err)
