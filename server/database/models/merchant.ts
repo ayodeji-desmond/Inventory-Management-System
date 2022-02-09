@@ -1,9 +1,9 @@
 import { Model, DataTypes} from 'sequelize';
 import sequelize from './index'
+import service from "../../services/bcrypt.service"
 
   export class Merchant extends Model {
 
-    public id!: string
     public email!: string
     public address!: string
     public country!: string
@@ -11,12 +11,23 @@ import sequelize from './index'
     public password!: string
     
     //static associate(models) {}
+
+   
+  };
+
+  const hooks = {
+    beforeCreate(merchant: Merchant){
+      merchant.password = service.password(merchant);
+    }
   };
 
   Merchant.init({
     id: {
-      type: DataTypes.UUIDV4,
-      primaryKey: true
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING(60),
@@ -42,4 +53,5 @@ import sequelize from './index'
   }, {
     sequelize,
     modelName: 'merchant',
+    hooks
   });

@@ -9,7 +9,7 @@ class MerchantDao{
         return Merchant.findOne({
             where: { email }
         }).then(response => {
-            return true;
+            return response ? true : false;
         })
     }
 

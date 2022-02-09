@@ -1,0 +1,62 @@
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 200 34 - 2.271 ms ::1 2022-02-09T15:57:21+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 200 34 - 6.480 ms ::1 2022-02-09T15:59:24+01:00
+}
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 200 38 - 2.161 ms ::1 2022-02-09T16:15:13+01:00
+}
+{info: Server started on port 6000}
+{error: confirm_password is required}
+{http: POST /api/v1/merchant/signup 400 26 - 8.887 ms ::1 2022-02-09T16:33:36+01:00
+}
+{info: Server started on port 6000}
+{error: confirm_password is required}
+{http: POST /api/v1/merchant/signup 400 63 - 5.561 ms ::1 2022-02-09T16:35:29+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup - - - - ms ::1 2022-02-09T17:17:54+01:00
+}
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 500 49 - 2.804 ms ::1 2022-02-09T17:26:52+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 42 - 4.588 ms ::1 2022-02-09T18:22:58+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 33 - 146.871 ms ::1 2022-02-09T18:25:52+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 33 - 90.041 ms ::1 2022-02-09T18:27:21+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 33 - 94.733 ms ::1 2022-02-09T18:29:44+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 88 - 102.360 ms ::1 2022-02-09T18:31:34+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 88 - 95.748 ms ::1 2022-02-09T18:34:39+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup - - - - ms ::1 2022-02-09T20:25:51+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 96 - 163.774 ms ::1 2022-02-09T20:38:39+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 96 - 154.819 ms ::1 2022-02-09T21:00:40+01:00
+}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 400 96 - 156.269 ms ::1 2022-02-09T21:05:07+01:00
+}
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{info: Server started on port 6000}
+{http: POST /api/v1/merchant/signup 200 67 - 159.235 ms ::1 2022-02-09T21:29:06+01:00
+}

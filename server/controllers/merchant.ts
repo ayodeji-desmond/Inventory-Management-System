@@ -1,16 +1,19 @@
 import {Request, Response} from 'express';
 //import {serverResponse, serverError} from "../helper/serverResponse";
 //import { NextFunction } from 'connect';
-import {BadRequestError} from "../helper/ApiError"
+import { SuccessMsgResponse } from '../helper/ApiResponse';
+
+import {BadRequestError, ApiError, InternalError} from "../helper/ApiError"
+import {} from "../helper/ApiResponse";
 import merchant from "../dao/merchant";
-import bcrypt from 'bcrypt';
+import Error from "../helper/error";
 import {Merchant} from "../database/models/merchant";
 //import { STRING } from 'sequelize/dist';
 import * as jwt from "jsonwebtoken";
+import {apiErrorHandler} from "../helper/errorHandler"
+import { serverError } from '../helper/serverResponse';
+import utils from "../helper/utilities";
 
-const dotenv = require("dotenv");
-const appPath = require("app-root-path");
-dotenv.config({ path: `${appPath}/.env` });
 
 
 
@@ -19,7 +22,7 @@ class MerchantController{
     async merchantSignIn(req: Request, res: Response){
         try{
             const user_login_credentials = req.body;
-            let encrypted_password = await bcrypt.hash(user_login_credentials.password, process.env.SALT!);
+            let encrypted_password = utils.hashString(user_login_credentials.password);
             const userFound = await Merchant.findOne({
                 where: {
                     email: user_login_credentials.email,
@@ -42,25 +45,41 @@ class MerchantController{
             */
 
         }catch(err){
-
+            console.log(err);
         }
     }
 
     async merchantSignup(req: Request, res: Response){
+
         try{
             const merchantData = req.body
             if(merchantData.password != merchantData.confirm_password) throw new BadRequestError("Kindly confirm your password")
             delete merchantData.confirm_password;
-            const is_merchant_exist = await merchant.isMerchantExist(merchantData.email);
-            if(is_merchant_exist) throw new BadRequestError("Email already exist");
-            merchantData.password = await bcrypt.hash(merchantData.password, process.env.SALT!);
-            console.log(merchantData)
+            const is_merchant_unique = await Merchant.findOne({
+                where: {
+                    email: merchantData.email
+                },
+                attributes: ['id', 'email']
+            });
+            if(is_merchant_unique) throw new BadRequestError("Email already exist");
+            const activation_code = utils.generateRandomToken();
+            //merchantData.password = utils.hashString(merchantData.password);
+            let merchant_data_obj = Object.assign({}, merchantData, {
+                activated: 0
+            });
 
-            //const result = await merchant.createMerchant(merchantData);
+            const registeredMerchant = await Merchant.create(merchant_data_obj);
+
+            return new SuccessMsgResponse("Merchant successfully registered").send(res);
+
+
+            console.log(merchant_data_obj)
+
         }catch(err){
-            res.json({err});
+            console.log(err)
+            Error.sendError400(err, res);
+            
         }
-    
     }
 }
 
