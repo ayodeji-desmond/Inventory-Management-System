@@ -1,0 +1,8 @@
+logs
+build
+node_modules
+.nyc_output
+.env
+.npmrc
+dist
+debug.log
